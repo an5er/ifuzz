@@ -24,6 +24,7 @@ type FuzzMondelOption struct {
 	Payloads []string `short:"p" description:"Set the payloads"`
 	Headers  string   `long:"header" description:"Set the Headers" default:"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"`
 	Body     string   `long:"body" description:"Set the Body"`
+	Thread   int      `long:"thread" description:"The number of concurrent threads"`
 }
 
 func FlagParse() Option {

@@ -6,7 +6,8 @@ import (
 	"log"
 )
 
-func Requests(template Template) {
+func Requests(i interface{}) {
+	template := i.(Template)
 	request := resty.New().R()
 	request.Method = template.Method
 	request.URL = template.RequestUrl
@@ -17,4 +18,5 @@ func Requests(template Template) {
 		log.Fatal(err)
 	}
 	fmt.Println("Status Code:", resp.StatusCode(), "url", request.URL, "body", template.RequestBody)
+	//defer TaskWaitGroup.Done()
 }

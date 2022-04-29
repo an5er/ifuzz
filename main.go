@@ -9,9 +9,9 @@ import (
 
 func main() {
 	fmt.Println(asset.FuckingCoding)
-
 	opt := cmd.FlagParse()
 	opt = cmd.ParseUrl(opt)
-	requst.GetRequestTemplate(opt)
-
+	pool := requst.GetRequestTemplate(opt)
+	pool.Wait()
+	pool.Close()
 }

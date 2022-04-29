@@ -24,9 +24,12 @@ func hasFuzzString(value string) bool {
 	return strings.Contains(value, "FUZ")
 }
 
-func Newtemplate(RequestTemplate Template, num int) {
-	for i := 0; i < num; i++ {
+func Newtemplate(i interface{}) {
+	defer TaskWaitGroup.Done()
+	RequestTemplate := i.(Template)
+	for i := 0; i < RequestTemplate.Num; i++ {
 		for j := 0; j < len(RequestTemplate.payload.ChainIteratorDic); j++ {
+
 			key := fmt.Sprintf(FUZZ_KEY_WORD, i)
 			replace := func(v string) string {
 				return strings.ReplaceAll(
@@ -50,11 +53,14 @@ func Newtemplate(RequestTemplate Template, num int) {
 	}
 }
 
-func NewZiptemplate(RequestTemplate Template, num int) {
+func NewZiptemplate(i interface{}) {
+	defer TaskWaitGroup.Done()
+	RequestTemplate := i.(Template)
 	var key string
 	for j := 0; j < len(RequestTemplate.payload.ZipIteratorDic); j++ {
 		tempfuzzresult := RequestTemplate.Url
-		for i := 0; i < num; i++ {
+		for i := 0; i < RequestTemplate.Num; i++ {
+
 			key = fmt.Sprintf(FUZZ_KEY_WORD, i)
 			replace := func(v string) string {
 				return strings.ReplaceAll(
